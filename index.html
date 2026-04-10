@@ -129,6 +129,57 @@
 </div>
   </main>
 
+  <div style="margin: 20px; text-align: center;">
+  <button id="like-btn" style="background: #ff6b6b; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold;">
+    ❤️ J’aime F-Mind
+  </button>
+  <div id="like-count" style="margin-top: 10px; font-size: 0.9em; color: #666;">
+    0 personne a aimé F-Mind
+  </div>
+</div>
+
+<script>
+  // Compteur de likes (GitHub)
+  const likeBtn = document.getElementById('like-btn');
+  const likeCount = document.getElementById('like-count');
+
+  // Récupère le nombre de likes
+  fetch('like.json')
+    .then(res => res.json())
+    .then(data => {
+      likeCount.textContent = `${data.likes} personne${data.likes > 1 ? 's' : ''} a aimé F-Mind`;
+    });
+
+  // Quand on clique sur “J’aime”
+  likeBtn.addEventListener('click', () => {
+    fetch('like.json')
+      .then(res => res.json())
+      .then(data => {
+        data.likes += 1;
+        // Met à jour le fichier like.json sur GitHub
+        fetch('https://api.github.com/repos/TON-PSEUDO/f-mind/contents/like.json', {
+          method: 'PUT',
+          headers: {
+            'Authorization': 'token VOTRE_TOKEN_GITHUB',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            message: 'Like ajouté',
+            content: btoa(JSON.stringify(data, null, 2)),
+            sha: '' // À remplir (voir ci-dessous)
+          })
+        })
+        .then(res => res.json())
+        .then(data => {
+          likeCount.textContent = `${data.content.likes} personne${data.content.likes > 1 ? 's' : ''} a aimé F-Mind`;
+          likeBtn.disabled = true;
+          likeBtn.style.opacity = '0.5';
+          likeBtn.textContent = '✅ Merci !';
+        });
+      });
+  });
+</script>
+
   <script src="script.js"></script>
   <!-- 100% privacy-first analytics -->
   <script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
