@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>F-Mind</title>
+  <link rel="stylesheet" href="fimind.css" />
+</head>
+<body>
+  <header class="header">
+    
+    <img src="Design sans titre.png" alt="flogo">
+    <h1 class="app-title">-Mind</h1>
+  </header>
+
+  <nav class="nav">
+    <button class="nav-btn active" data-tab="tasks">Tâches</button>
+    <button class="nav-btn" data-tab="finance">Finances</button>
+    <button class="nav-btn" data-tab="timer">Minuteur</button>
+  </nav>
+
+  <main class="content">
+   <div class="module active" id="tasks">
+  <h2>📋 Gestion des Tâches</h2>
+
+  <!-- Filtre -->
+  <div class="task-filter">
+    <label><input type="radio" name="filter" value="all" checked> Toutes</label>
+    <label><input type="radio" name="filter" value="active"> À faire</label>
+    <label><input type="radio" name="filter" value="completed"> Terminées</label>
+  </div>
+
+  <!-- Formulaire d'ajout -->
+  <div class="task-form">
+    <input type="text" id="taskInput" placeholder="Titre de la tâche" />
+    <textarea id="taskDesc" placeholder="Description (optionnel)" rows="2"></textarea>
+    <input type="date" id="taskDueDate" />
+    <button id="addTaskBtn">➕</button>
+  </div>
+
+  <!-- Liste des tâches -->
+  <ul id="taskList" class="task-list">
+    <!-- Les tâches s'afficheront ici -->
+  </ul>
+</div>
+
+    <div class="module" id="finance">
+  <h2>💰 Gestion des Finances</h2>
+
+  <!-- Formulaire d'ajout -->
+  <div class="finance-form">
+    <input type="number" id="amountInput" placeholder="Montant (FCFA)" step="0.01" />
+    <select id="typeInput">
+      <option value="income">Revenu</option>
+      <option value="expense">Dépense</option>
+    </select>
+    <select id="categoryInput">
+      <option value="food">Nourriture</option>
+      <option value="housing">Logement</option>
+      <option value="transport">Transport</option>
+      <option value="salary">Salaire</option>
+      <option value="other">Autre</option>
+    </select>
+    <button id="addFinanceBtn">➕</button>
+  </div>
+
+  <!-- Tableau des mouvements -->
+  <table class="finance-table">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Type</th>
+        <th>Catégorie</th>
+        <th>Montant</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="financeList">
+      <!-- Les mouvements s'afficheront ici -->
+    </tbody>
+  </table>
+
+  <!-- Total -->
+  <div class="finance-summary">
+    <p><strong>Total Revenus :</strong> <span id="totalIncome">0.00 FCFA</span></p>
+    <p><strong>Total Dépenses :</strong> <span id="totalExpense">0.00 FCFA</span></p>
+    <p><strong>Solde :</strong> <span id="balance">0.00 FCFA</span></p>
+  </div>
+</div>
+
+<div class="module" id="timer">
+  <h2>⏱️ F-Timer — Minuteur Accéléré</h2>
+
+  <!-- Réglage du temps -->
+    <div class="timer-setup">
+    <label>Heures : <input type="number" id="timerHours" min="0" max="10" value="1" /></label>
+    <label>Minutes : <input type="number" id="timerMinutes" min="0" max="59" value="0" /></label>
+    <label>Secondes : <input type="number" id="timerSeconds" min="0" max="59" value="0" /></label>
+    <button id="setTimerBtn">✅ </button>
+    </div>
+
+  <!-- Affichage du temps -->
+  <div class="timer-display" id="timerDisplay">00:00:00</div>
+
+  <!-- Modes Pomodoro -->
+<div class="pomodoro-modes">
+  <button id="pomodoro25Btn">🍅 Pomodoro 25/5</button>
+  <button id="pomodoro50Btn">🍅 Pomodoro 50/10</button>
+</div>
+
+  <!-- Contrôles -->
+<div class="timer-controls">
+  <button id="pauseTimerBtn">⏸️ Pause</button>
+  <button id="resetTimerBtn">🔄 Réinitialiser</button>
+  <button id="resumeBtn" style="display: none;">▶️ Reprendre</button>
+</div>
+
+  <!-- Statut -->
+  <div class="timer-status" id="timerStatus">Prêt</div>
+</div>
+  </main>
+
+  <script src="fimind.js"></script>
+</body>
+</html>

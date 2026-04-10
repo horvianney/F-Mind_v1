@@ -1,0 +1,561 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bleu-nuit: #0a0f2a;
+  --orange: #ff7f00;
+  --blanc: #ffffff;
+}
+
+body {
+  background: var(--bleu-nuit);
+  color: var(--blanc);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  min-height: 100vh;
+  animation: pulse 8s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0% { background: var(--bleu-nuit); }
+  50% { background: #0d1333; }
+  100% { background: var(--bleu-nuit); }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  justify-content: center;
+}
+
+
+.app-title {
+  margin-left: 0;
+  font-size: 1.5rem;
+  color: var(--orange);
+}
+
+.nav {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+}
+
+.nav-btn {
+  padding: 0.5rem 1rem;
+  background: transparent;
+  color: var(--blanc);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.nav-btn.active {
+  background: var(--orange);
+  color: var(--bleu-nuit);
+  font-weight: bold;
+}
+
+.content {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.module {
+  display: none;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.module.active {
+  display: block;
+}
+
+.module h2 {
+  color: var(--orange);
+  margin-bottom: 1rem;
+  border-bottom: 2px solid var(--orange);
+  padding-bottom: 0.5rem;
+}
+
+/* Styles pour les tâches */
+.task-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.task-form input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--blanc);
+  font-size: 1rem;
+}
+
+.task-form input:focus {
+  outline: none;
+  border-color: var(--orange);
+}
+
+.task-form button {
+  padding: 0.75rem 1rem;
+  background: var(--orange);
+  color: var(--bleu-nuit);
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.task-form button:hover {
+  background: #ff9933;
+}
+
+.task-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  border-left: 4px solid var(--orange);
+  transition: transform 0.2s, opacity 0.3s;
+}
+
+.task-item:hover {
+  transform: translateX(5px);
+}
+
+.task-item.completed {
+  opacity: 0.6;
+  border-left-color: #666;
+}
+
+.task-item.completed .task-text {
+  text-decoration: line-through;
+  color: #aaa;
+}
+
+.task-checkbox {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--orange);
+  cursor: pointer;
+}
+
+.task-delete {
+  background: none;
+  border: none;
+  color: #ff5555;
+  cursor: pointer;
+  font-size: 1.2rem;
+  margin-left: auto;
+  transition: color 0.2s;
+}
+
+.task-delete:hover {
+  color: #ff0000;
+}
+
+.task-item.removing {
+  animation: fadeOut 0.3s forwards;
+}
+
+@keyframes fadeOut {
+  to { opacity: 0; transform: translateX(-100%); }
+}
+
+/* Styles pour les finances */
+.finance-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.finance-form input,
+.finance-form select {
+  padding: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--blanc);
+  font-size: 1rem;
+}
+
+.finance-form select {
+  min-width: 120px;
+}
+
+.finance-form button {
+  padding: 0.75rem 1rem;
+  background: var(--orange);
+  color: var(--bleu-nuit);
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.finance-form button:hover {
+  background: #ff9933;
+}
+
+.finance-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.finance-table th,
+.finance-table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.finance-table th {
+  background: rgba(255, 255, 255, 0.1);
+  font-weight: bold;
+  color: var(--orange);
+}
+
+.finance-table .income {
+  color: #4caf50;
+}
+
+.finance-table .expense {
+  color: #ff5555;
+}
+
+.finance-table .delete-btn {
+  background: none;
+  border: none;
+  color: #ff5555;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: color 0.2s;
+}
+
+.finance-table .delete-btn:hover {
+  color: #ff0000;
+}
+
+.finance-summary {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  border-left: 4px solid var(--orange);
+}
+
+.finance-summary p {
+  margin: 0.5rem 0;
+}
+
+.finance-summary strong {
+  color: var(--orange);
+}
+
+/* Styles pour le filtre */
+.task-filter {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+
+.task-filter label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.task-filter input[type="radio"] {
+  accent-color: var(--orange);
+}
+
+/* Styles pour la description et date */
+.task-form textarea {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--blanc);
+  font-size: 1rem;
+  resize: vertical;
+}
+
+.task-form input[type="date"] {
+  padding: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--blanc);
+  font-size: 1rem;
+}
+
+/* Style pour la date limite dans la tâche */
+.task-due {
+  font-size: 0.85rem;
+  color: #aaa;
+  margin-left: 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+.task-due.overdue {
+  color: #ff5555;
+  background: rgba(255, 85, 85, 0.1);
+}
+
+/* Styles pour les inputs et textarea — fond bleu nuit, texte blanc */
+input[type="text"],
+input[type="date"],
+textarea {
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: var(--blanc) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 8px !important;
+  padding: 0.75rem !important;
+  font-size: 1rem !important;
+  transition: border-color 0.2s !important;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+textarea:focus {
+  outline: none !important;
+  border-color: var(--orange) !important;
+}
+
+/* Placeholder en gris clair */
+input::placeholder,
+textarea::placeholder {
+  color: #aaa !important;
+  opacity: 1 !important;
+}
+
+/* Pour le sélecteur de date — style du bouton calendrier */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1) brightness(1.5);
+  cursor: pointer;
+}
+
+input[type="date"]::-moz-calendar-picker-indicator {
+  filter: invert(1) brightness(1.5);
+  cursor: pointer;
+}
+
+/* Styles pour le minuteur */
+.timer-setup {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.timer-setup label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--blanc);
+}
+
+.timer-setup input {
+  width: 80px;
+  padding: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--blanc);
+  font-size: 1rem;
+  text-align: center;
+}
+
+.timer-setup input:focus {
+  outline: none;
+  border-color: var(--orange);
+}
+
+.timer-setup button {
+  padding: 0.75rem 1rem;
+  background: var(--orange);
+  color: var(--bleu-nuit);
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.timer-setup button:hover {
+  background: #ff9933;
+}
+
+.timer-display {
+  font-size: 3rem;
+  font-weight: bold;
+  color: var(--orange);
+  text-align: center;
+  margin: 1.5rem 0;
+  font-family: monospace;
+  letter-spacing: 2px;
+}
+
+.timer-controls {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.timer-controls button {
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--blanc);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.timer-controls button:hover {
+  background: var(--orange);
+  color: var(--bleu-nuit);
+}
+
+.timer-controls button:active {
+  transform: scale(0.95);
+}
+
+.timer-status {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #aaa;
+  margin-top: 1rem;
+}
+
+/* Styles pour les modes Pomodoro */
+.pomodoro-modes {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.pomodoro-modes button {
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--blanc);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.pomodoro-modes button:hover {
+  background: var(--orange);
+  color: var(--bleu-nuit);
+}
+
+.pomodoro-modes button:active {
+  transform: scale(0.95);
+}
+
+/* Styles pour les select (menus déroulants) */
+select {
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: var(--blanc) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 8px !important;
+  padding: 0.75rem !important;
+  font-size: 1rem !important;
+  cursor: pointer !important;
+  transition: border-color 0.2s !important;
+}
+
+select:focus {
+  outline: none !important;
+  border-color: var(--orange) !important;
+}
+
+/* Options du select */
+select option {
+  background: var(--bleu-nuit) !important;
+  color: var(--blanc) !important;
+}
+
+select option:hover {
+  background: var(--orange) !important;
+  color: var(--bleu-nuit) !important;
+}
+
+/* Pour les navigateurs qui supportent appearance: none */
+select {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ff7f00' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1.5em 1.5em;
+  padding-right: 2.5rem;
+}
+
+img{
+  height: 35px;
+}#resumeBtn {
+  padding: 0.75rem 1rem;
+  background: var(--orange);
+  color: var(--bleu-nuit);
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: none;
+}
+
+#resumeBtn:hover {
+  background: #ff9933;
+}
+
+#resumeBtn:active {
+  transform: scale(0.95);
+}
