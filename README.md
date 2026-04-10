@@ -1,4 +1,4 @@
-# 🧠 F-Mind — Gestion du temps & finances en 50 min
+# 🧠 F-Mind — Gestion du temps & finances
 
 > **“60 minutes, c’est trop long. F-Mind te fait gagner du temps ET de l’argent — en 50 min.”**
 
