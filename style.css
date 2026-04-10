@@ -559,3 +559,42 @@ img{
 #resumeBtn:active {
   transform: scale(0.95);
 }
+
+/* Pour les petits écrans */
+@media (max-width: 768px) {
+  body {
+    font-size: 16px;
+    padding: 10px;
+  }
+
+  .nav-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .task-form {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .task-input {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .add-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+  }
+
+  .like-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+  }
+
+  .section-title {
+    font-size: 18px;
+  }
+}
