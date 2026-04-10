@@ -129,7 +129,7 @@
 </div>
   </main>
 
-  <div style="margin: 20px; text-align: center;">
+<div style="margin: 20px; text-align: center;">
   <button id="like-btn" style="background: #ff6b6b; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold;">
     ❤️ J’aime F-Mind
   </button>
@@ -139,15 +139,18 @@
 </div>
 
 <script>
-  // Compteur de likes (GitHub)
   const likeBtn = document.getElementById('like-btn');
   const likeCount = document.getElementById('like-count');
 
-  // Récupère le nombre de likes
+  // Récupère le nombre de likes au chargement
   fetch('like.json')
     .then(res => res.json())
     .then(data => {
       likeCount.textContent = `${data.likes} personne${data.likes > 1 ? 's' : ''} a aimé F-Mind`;
+    })
+    .catch(err => {
+      likeCount.textContent = "Erreur de chargement du compteur";
+      console.error("Erreur lors du chargement de like.json", err);
     });
 
   // Quand on clique sur “J’aime”
@@ -156,26 +159,42 @@
       .then(res => res.json())
       .then(data => {
         data.likes += 1;
+
         // Met à jour le fichier like.json sur GitHub
         fetch('https://api.github.com/repos/TON-PSEUDO/f-mind/contents/like.json', {
           method: 'PUT',
           headers: {
-            'Authorization': 'token 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',
+            'Authorization': 'token ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx', // ⚠️ Remplace par ton vrai token
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
             message: 'Like ajouté',
             content: btoa(JSON.stringify(data, null, 2)),
-            sha: '' // À remplir (voir ci-dessous)
+            sha: '' // On va le récupérer dans la prochaine étape
           })
         })
-        .then(res => res.json())
-        .then(data => {
-          likeCount.textContent = `${data.content.likes} personne${data.content.likes > 1 ? 's' : ''} a aimé F-Mind`;
-          likeBtn.disabled = true;
-          likeBtn.style.opacity = '0.5';
-          likeBtn.textContent = '✅ Merci !';
+        .then(res => {
+          if (res.ok) {
+            likeCount.textContent = `${data.likes} personne${data.likes > 1 ? 's' : ''} a aimé F-Mind`;
+            likeBtn.disabled = true;
+            likeBtn.style.opacity = '0.5';
+            likeBtn.textContent = '✅ Merci !';
+          } else {
+            likeBtn.textContent = '❌ Erreur — token invalide ?';
+            likeBtn.style.background = '#ff4d4d';
+            console.error("Erreur GitHub API", res.status, res.statusText);
+          }
+        })
+        .catch(err => {
+          likeBtn.textContent = '❌ Erreur réseau';
+          likeBtn.style.background = '#ff4d4d';
+          console.error("Erreur lors de la requête", err);
         });
+      })
+      .catch(err => {
+        likeBtn.textContent = '❌ Erreur de lecture';
+        likeBtn.style.background = '#ff4d4d';
+        console.error("Erreur lors de la lecture de like.json", err);
       });
   });
 </script>
